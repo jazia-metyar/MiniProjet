@@ -1,4 +1,4 @@
-package prodcat.miniprojet.Data.configuration;
+package prodcat.miniprojet.data.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
