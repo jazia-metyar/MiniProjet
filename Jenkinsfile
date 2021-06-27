@@ -13,9 +13,10 @@ pipeline {
                           '''
                       }
                   }
-        stage('Build stage') {
+
+        stage('compile stage') {
             steps {
-              bat 'mvn test'
+              bat 'mvn compile'
         }
     }
     }
