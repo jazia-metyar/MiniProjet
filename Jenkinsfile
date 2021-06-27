@@ -1,28 +1,29 @@
 pipeline {
-            agent any
+    agent any
+     tools {
+        maven 'MAVEN_HOME'
+      }
 
-
-            stages {
-             stage ('Initialize') {
-                                      steps {
-                                                  bat'''
-                                                      echo "PATH = ${PATH}"
-                                                      echo "M2_HOME = ${M2_HOME}"
-                                                  '''
-                                              }
-                                  }
-
-            stage('Build stage') {
-                                     steps {
-                                       bat 'mvn clean compile'
-                                    }
-                                  }
-                   }
+    stages {
+     stage ('Initialize') {
+                      steps {
+                          bat '''
+                              echo "PATH = ${PATH}"
+                              echo "M2_HOME = ${M2_HOME}"
+                          '''
+                      }
+                  }
+        stage('Build stage') {
+            steps {
+              bat 'mvn test'
+        }
+    }
+    }
     post {
-            always{
-                    cleanWs()
-                    }
-         }
+    always{
+    cleanWs()
+    }
+    }
 
 
     }
