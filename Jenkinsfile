@@ -1,13 +1,11 @@
 pipeline {
             agent any
-             tools {
-                     maven 'M3'
-                    }
+
 
             stages {
              stage ('Initialize') {
                                       steps {
-                                                  sh '''
+                                                  bat'''
                                                       echo "PATH = ${PATH}"
                                                       echo "M2_HOME = ${M2_HOME}"
                                                   '''
@@ -16,7 +14,7 @@ pipeline {
 
             stage('Build stage') {
                                      steps {
-                                       sh 'mvn clean compile'
+                                       bat 'mvn clean compile'
                                     }
                                   }
                    }
