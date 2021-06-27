@@ -1,34 +1,25 @@
 pipeline {
-    agent any
-    stages {
-        stage('Compile Stage')
-        {
-          steps{
-                    withMaven(maven:'maven_3_8_1')
-                    {
-                       sh 'mvn clean compile'
+            agent any
+             tools {
+                     maven 'M3'
                     }
-               }
-        }
-        stage('Testing Stage')
-                {
-                  steps{
-                            withMaven(maven:'maven_3_8_1')
-                            {
-                               sh 'mvn test'
-                            }
-                       }
-                }
 
-         stage('Deployment Stage')
-                {
-                  steps{
-                            withMaven(maven:'maven_3_8_1')
-                            {
-                               sh 'mvn deploy'
-                            }
-                       }
-                }
+            stages {
+             stage ('Initialize') {
+                                      steps {
+                                                  sh '''
+                                                      echo "PATH = ${PATH}"
+                                                      echo "M2_HOME = ${M2_HOME}"
+                                                  '''
+                                              }
+                                  }
+
+                    }
+    post {
+            always{
+                    cleanWs()
+                    }
+         }
+
 
     }
-}
