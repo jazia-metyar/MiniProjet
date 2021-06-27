@@ -1,8 +1,10 @@
 package prodcat.miniprojet;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import prodcat.miniprojet.data.moduls.Category;
 import prodcat.miniprojet.data.moduls.Product;
 import prodcat.miniprojet.data.repositories.CategoryRepository;
@@ -11,7 +13,9 @@ import prodcat.miniprojet.services.CategoryService;
 import prodcat.miniprojet.services.ProductService;
 
 import java.sql.Timestamp;
-
+import java.util.List;
+import  static  org.assertj.core.api.Assertions.assertThat;
+@RunWith(SpringRunner.class)
 @SpringBootTest
 class MiniProjetApplicationTests {
    CategoryRepository categoryRepository;
@@ -31,11 +35,13 @@ class MiniProjetApplicationTests {
     }
 
 
-/*
+
     @Test
-    void contextLoads() {
+    void geCategories() {
+        List<Category> categories=categoryRepository.findAll();
+        assertThat(categories).size().isPositive();
     }
- */  @Test
+  @Test
     void addCategory()
     {
        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
@@ -45,9 +51,11 @@ class MiniProjetApplicationTests {
         category.setDateCreation(timestamp);
 
           categoryService.createEntity(category);
+        assertThat(category.getId()).isPositive();
     }
 
-    @Test
+
+@Test
     void addProduct()
     {
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
@@ -58,7 +66,8 @@ class MiniProjetApplicationTests {
         product.setDateCreation(timestamp);
         product.setCategory(categoryRepository.findById((long)21).get());
          productService.createEntity(product);
-      //  assertThat(body).isEqualTo("Hello World");
+        assertThat(product.getId()).isPositive();
+        assertThat(product.getCategory().getDateCreation()).isNotNull();
 
     }
 
