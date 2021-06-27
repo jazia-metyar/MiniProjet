@@ -14,7 +14,12 @@ pipeline {
                                               }
                                   }
 
-                    }
+            stage('Build stage') {
+                                     steps {
+                                       sh 'mvn clean compile'
+                                    }
+                                  }
+                   }
     post {
             always{
                     cleanWs()
