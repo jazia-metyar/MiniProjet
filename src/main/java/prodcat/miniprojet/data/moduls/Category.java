@@ -19,7 +19,7 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE)
     @JsonIgnore
-    private List<Product> product ;
+    private List<Product> product = new ArrayList<>();
     private Timestamp dateCreation;
     private Timestamp dateModify;
 
