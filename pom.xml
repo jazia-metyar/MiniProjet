@@ -10,7 +10,7 @@
     </parent>
     <groupId>ProdCat</groupId>
     <artifactId>mini-projet</artifactId>
-    <version>3.8.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>mini-projet</name>
     <description>my-First-Test</description>
     <properties>
@@ -89,7 +89,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                 <version>2.5.1</version>
                 <configuration>
                     <excludes>
                         <exclude>
