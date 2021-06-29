@@ -14,9 +14,9 @@ pipeline {
                       }
                   }
 
-        stage('Deploy stage') {
+        stage('Install stage') {
             steps {
-              bat 'mvn clean deploy'
+              bat 'mvn clean install'
         }
     }
     }
