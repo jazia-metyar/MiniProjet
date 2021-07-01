@@ -12,7 +12,6 @@ import prodcat.miniprojet.data.moduls.Category;
 import prodcat.miniprojet.data.repositories.CategoryRepository;
 import prodcat.miniprojet.services.CategoryService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
