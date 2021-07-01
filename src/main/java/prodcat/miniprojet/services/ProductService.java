@@ -26,8 +26,6 @@ public class ProductService {
             category = optionalCategory.get();
         else
             throw new NoSuchElementException("Category with this id is not found");
-        category.getProduct().add(product);
-        categoryRepository.save(category);
         product.setCategory(category);
         return productRepository.save(product);
     }
@@ -50,8 +48,6 @@ public class ProductService {
 
         // save category
         if(product.getCategory()!=null){
-            oldProduct.getCategory().getProduct().remove(product);
-            product.getCategory().getProduct().add(product);
             Optional<Category> optionalCategory = categoryRepository.findById(id);
             Category category;
             if (optionalCategory.isPresent())
@@ -59,8 +55,6 @@ public class ProductService {
             else
                 throw new NoSuchElementException("Category with this id is not found");
             oldProduct.setCategory(category);
-
-
         }
         return productRepository.save(oldProduct);
     }
