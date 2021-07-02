@@ -12,6 +12,9 @@ import prodcat.miniprojet.data.moduls.Category;
 import prodcat.miniprojet.data.repositories.CategoryRepository;
 import prodcat.miniprojet.services.CategoryService;
 
+
+import java.util.List;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -22,23 +25,27 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CategoryController {
     private ModelMapper mapper;
-    private CategoryRepository categoryRepository;
+    private CategoryRepository catR;
     private CategoryService categoryService;
 
     @GetMapping
     public List<Category> getAll() {
-        return categoryRepository.findAll();
+        return catR.findAll();
     }
 
     @GetMapping("/{id}")
+    
+    
+    
+    
     public Optional<Category> getById(@PathVariable("id") long id) {
 
-        return categoryRepository.findById(id);
+        return catR.findById(id);
     }
 
     @PostMapping
-    public Category createCategory(@RequestBody CategoryDto categoryDto) {
-        var category = mapper.map(categoryDto, Category.class);
+    public Category createCategory(@RequestBody CategoryDto c) {
+        Category category = mapper.map(c, Category.class);
 
         return categoryService.createEntity(category);
     }
@@ -53,7 +60,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable("id") Category category) {
-        categoryRepository.delete(category);
+        catR.delete(category);
     }
 
 
@@ -65,6 +72,7 @@ public class CategoryController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         var stringBuilder = new StringBuilder();
+        
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
             stringBuilder.append(error.getField() + ": " + error.getDefaultMessage() + ".\n");
         }
