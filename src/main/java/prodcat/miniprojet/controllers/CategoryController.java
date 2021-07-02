@@ -22,45 +22,39 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CategoryController {
     private ModelMapper mapper;
-   private  CategoryRepository categoryRepository;
-   private  CategoryService categoryService;
+    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @GetMapping
-    public List<Category> getAll(){
+    public List<Category> getAll() {
         return categoryRepository.findAll();
     }
 
-
     @GetMapping("/{id}")
-    public Optional<Category> getById(@PathVariable("id")long id) {
+    public Optional<Category> getById(@PathVariable("id") long id) {
 
         return categoryRepository.findById(id);
     }
 
     @PostMapping
-    public Category createCategory( @RequestBody CategoryDto categoryDto) {
-        var category=  mapper.map(categoryDto, Category.class);
+    public Category createCategory(@RequestBody CategoryDto categoryDto) {
+        var category = mapper.map(categoryDto, Category.class);
 
-        return  categoryService.createEntity(category);
+        return categoryService.createEntity(category);
     }
 
     @PutMapping("/{id}")
-    public Category modifyCategory(@PathVariable("id")long id,
+    public Category modifyCategory(@PathVariable("id") long id,
                                    @RequestBody CategoryDto categoryDto) {
-        var category=  mapper.map(categoryDto, Category.class);
+        var category = mapper.map(categoryDto, Category.class);
 
-        return categoryService.modifyEntity(id,category);
+        return categoryService.modifyEntity(id, category);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable("id")Category category) {
-
+    public void deleteCategory(@PathVariable("id") Category category) {
         categoryRepository.delete(category);
     }
-
-
-
-
 
 
     @ExceptionHandler(NoSuchElementException.class)
@@ -72,7 +66,7 @@ public class CategoryController {
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         var stringBuilder = new StringBuilder();
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
-            stringBuilder.append(error.getField() + ": "+ error.getDefaultMessage()+".\n");
+            stringBuilder.append(error.getField() + ": " + error.getDefaultMessage() + ".\n");
         }
         return new ResponseEntity<>(stringBuilder.toString(), HttpStatus.BAD_REQUEST);
     }

@@ -48,7 +48,7 @@ public class ProductService {
 
         // save category
         if(product.getCategory()!=null){
-            Optional<Category> optionalCategory = categoryRepository.findById(id);
+            Optional<Category> optionalCategory = categoryRepository.findById(product.getCategory().getId());
             Category category;
             if (optionalCategory.isPresent())
                 category = optionalCategory.get();
