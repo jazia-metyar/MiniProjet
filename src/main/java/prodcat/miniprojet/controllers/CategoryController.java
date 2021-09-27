@@ -15,12 +15,11 @@ import prodcat.miniprojet.services.CategoryService;
 
 import java.util.List;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/category")
+@RequestMapping("/api/categoryy")
 @RestController
 @AllArgsConstructor
 public class CategoryController {
