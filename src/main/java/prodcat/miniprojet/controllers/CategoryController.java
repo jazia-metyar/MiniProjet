@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import org.springframework.web.bind.annotation.*;
 import prodcat.miniprojet.data.dto.CategoryDto;
 import prodcat.miniprojet.data.moduls.Category;
@@ -44,7 +43,7 @@ public class CategoryController {
 
     @PostMapping
     public Category createCategory(@RequestBody CategoryDto c) {
-        Category category = mapper.map(c, Category.class);
+        var category = mapper.map(c, Category.class);
 
         return categoryService.createEntity(category);
     }
@@ -68,15 +67,7 @@ public class CategoryController {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        var stringBuilder = new StringBuilder();
-        
-        for (FieldError error : e.getBindingResult().getFieldErrors()) {
-            stringBuilder.append(error.getField() + ": " + error.getDefaultMessage() + ".\n");
-        }
-        return new ResponseEntity<>(stringBuilder.toString(), HttpStatus.BAD_REQUEST);
-    }
+
 
 
 }
